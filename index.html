@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MagicBackdrop — Privacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171327;
+    --paper:#F5F2FC;
+    --card:#FFFFFF;
+    --violet:#6C47FF;
+    --violet-deep:#3A1FAE;
+    --violet-soft:#C9BCFF;
+    --muted:#6A6483;
+    --line:#E7E1F5;
+    --maxw:680px;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--violet-deep);text-decoration:none;border-bottom:1px solid var(--violet-soft);transition:border-color .15s ease,color .15s ease;}
+  a:hover{color:var(--violet);border-bottom-color:var(--violet);}
+  a:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:2px;}
+
+  /* ---- Backdrop sweep: the signature. A seamless studio paper sweeping down behind the title. ---- */
+  .sweep{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 50% -20%, #8E6BFF 0%, #6C47FF 38%, #3A1FAE 78%, #2A1685 100%);
+    color:#fff;
+    padding:96px 24px 132px;
+    text-align:center;
+  }
+  /* the curved floor where the seamless paper meets the ground */
+  .sweep::after{
+    content:"";
+    position:absolute;
+    left:-10%;
+    right:-10%;
+    bottom:-1px;
+    height:140px;
+    background:var(--paper);
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .sweep-inner{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;}
+
+  .eyebrow{
+    font-size:.74rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--violet-soft);
+    margin:0 0 18px;
+  }
+  .wordmark{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;
+    font-size:clamp(2.6rem,8vw,4.2rem);
+    line-height:.96;
+    letter-spacing:-.02em;
+    margin:0;
+  }
+  .lede{
+    max-width:42ch;
+    margin:22px auto 0;
+    font-size:1.02rem;
+    color:rgba(255,255,255,.82);
+  }
+
+  /* ---- Contents ---- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px 96px;}
+
+  .contents{
+    margin:-72px auto 64px;
+    position:relative;
+    z-index:2;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px 28px;
+    box-shadow:0 24px 60px -28px rgba(58,31,174,.32);
+  }
+  .contents h2{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+    font-weight:700;
+  }
+  .contents ol{margin:0;padding:0;list-style:none;counter-reset:toc;}
+  .contents li{counter-increment:toc;margin:0;}
+  .contents a{
+    display:flex;
+    gap:14px;
+    align-items:baseline;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+    font-weight:500;
+  }
+  .contents li:last-child a{border-bottom:none;}
+  .contents a::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:.82rem;
+    color:var(--violet);
+    font-weight:700;
+    min-width:1.8em;
+  }
+  .contents a:hover{color:var(--violet);}
+
+  /* ---- Sections ---- */
+  .section{padding:38px 0;border-top:1px solid var(--line);scroll-margin-top:24px;}
+  .section:first-of-type{border-top:none;}
+  .section h3{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:700;
+    font-size:1.5rem;
+    line-height:1.2;
+    letter-spacing:-.01em;
+    margin:0 0 16px;
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+  }
+  .section h3 .num{
+    font-size:.8rem;
+    color:var(--violet);
+    font-weight:800;
+    letter-spacing:.04em;
+    flex:none;
+    padding-top:.15em;
+  }
+  .section p{margin:0 0 14px;color:#2C2740;}
+  .section p:last-child{margin-bottom:0;}
+
+  ul.facts{
+    list-style:none;
+    margin:16px 0;
+    padding:18px 20px;
+    background:rgba(108,71,255,.05);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  ul.facts li{
+    position:relative;
+    padding:6px 0 6px 26px;
+  }
+  ul.facts li::before{
+    content:"";
+    position:absolute;
+    left:4px;top:.95em;
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--violet);
+  }
+  ul.facts li b{font-weight:600;}
+
+  footer{
+    text-align:center;
+    padding:0 24px 64px;
+    color:var(--muted);
+    font-size:.86rem;
+  }
+  footer .dot{color:var(--violet);}
+
+  /* entrance */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  @media (max-width:520px){
+    .sweep{padding:72px 20px 116px;}
+    .wrap{padding:0 20px 72px;}
+    .contents{padding:20px 20px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="sweep">
+    <div class="sweep-inner">
+      <p class="eyebrow">Privacy Policy</p>
+      <h1 class="wordmark">MagicBackdrop</h1>
+      <p class="lede">What we process, where it lives, and the rights you keep — in plain terms.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <nav class="contents reveal" aria-label="Contents">
+      <h2>On this page</h2>
+      <ol>
+        <li><a href="#controller">Controller</a></li>
+        <li><a href="#data">What data is processed?</a></li>
+        <li><a href="#removebg">Use of the remove.bg API</a></li>
+        <li><a href="#storage">Local data storage</a></li>
+        <li><a href="#ads">Advertising (Google AdMob)</a></li>
+        <li><a href="#rights">Your rights</a></li>
+      </ol>
+    </nav>
+
+    <main>
+
+      <section class="section reveal" id="controller">
+        <h3><span class="num">01</span>Controller</h3>
+        <p>MagicBackdrop is a private application. For questions, please contact the app provider.</p>
+      </section>
+
+      <section class="section reveal" id="data">
+        <h3><span class="num">02</span>What data is processed?</h3>
+        <p>MagicBackdrop processes only the following data:</p>
+        <ul class="facts">
+          <li>Photos taken with your camera</li>
+          <li>A background image selected from your gallery</li>
+          <li>Your remove.bg API key</li>
+        </ul>
+        <p>No personal data (name, email, location, etc.) is collected or stored.</p>
+      </section>
+
+      <section class="section reveal" id="removebg">
+        <h3><span class="num">03</span>Use of the remove.bg API</h3>
+        <p>This app uses the remove.bg service (Kaleido AI GmbH) to automatically remove backgrounds from photos.</p>
+        <p>When you take a photo, it is transmitted to remove.bg servers for processing. remove.bg processes the image and returns a version with the background removed.</p>
+        <p>The remove.bg privacy policy applies to this transfer:<br>
+          <a href="https://www.remove.bg/privacy" target="_blank" rel="noopener noreferrer">remove.bg/privacy</a></p>
+      </section>
+
+      <section class="section reveal" id="storage">
+        <h3><span class="num">04</span>Local data storage</h3>
+        <p>All data is stored exclusively on your device:</p>
+        <ul class="facts">
+          <li><b>API key:</b> encrypted (EncryptedSharedPreferences / Keychain)</li>
+          <li><b>Background image path:</b> in app storage</li>
+        </ul>
+        <p>The app does not send any data to its own servers.</p>
+      </section>
+
+      <section class="section reveal" id="ads">
+        <h3><span class="num">05</span>Advertising (Google AdMob)</h3>
+        <p>This app displays advertisements via Google AdMob (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4).</p>
+        <p>A GDPR consent dialog is shown on first launch. Without consent, only non-personalized ads are shown.</p>
+        <p>Google may process data through advertising. For more information:<br>
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></p>
+      </section>
+
+      <section class="section reveal" id="rights">
+        <h3><span class="num">06</span>Your rights</h3>
+        <p>You can delete your saved settings at any time by uninstalling the app. For processing by remove.bg or Google AdMob, please contact the respective providers directly.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    MagicBackdrop <span class="dot">•</span> Your photos stay on your device
+  </footer>
+
+  <script>
+    (function(){
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = document.querySelectorAll('.reveal');
+      if(reduce || !('IntersectionObserver' in window)){
+        els.forEach(function(el){el.classList.add('in');});
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      },{threshold:.12});
+      els.forEach(function(el){io.observe(el);});
+    })();
+  </script>
+
+</body>
+</html>
